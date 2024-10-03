@@ -50,118 +50,117 @@ const HomePage: React.FC<Props> = ({ bookings }) => {
     }
   };
 
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) {
-    // Handle invalid date
-    return 'Invalid Date';
-  }
-  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString(undefined, options);
-};
-
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return 'Invalid Date';
+    }
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-row space-x-20 justify-center items-center py-8">
+    <div className="min-h-screen bg-gradient-to-r from-pink-100 to-pink-300 flex flex-col md:flex-row md:space-x-20 justify-center items-center py-8">
+      
+      {/* New Booking Form */}
       <div className="w-full max-w-md mb-12">
-        <h1 className="text-3xl font-bold mb-8 text-center">New Booking</h1>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        {success && <p className="text-green-500 mb-4">{success}</p>}
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full">
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              Service:
+        <h1 className="text-4xl font-bold mb-8 text-center text-pink-700">Book an appointment</h1>
+        {error && <p className="text-red-600 mb-4">{error}</p>}
+        {success && <p className="text-green-600 mb-4">{success}</p>}
+        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg space-y-6">
+          <div className="flex items-center space-x-2">
+            <label className="block text-gray-700 font-semibold flex-grow">
+              <span className="text-pink-700">Service:</span>
               <input
                 type="text"
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
                 required
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500"
               />
             </label>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              Doctor Name:
+
+          <div className="flex items-center space-x-2">
+            <label className="block text-gray-700 font-semibold flex-grow">
+              <span className="text-pink-700">Doctor Name:</span>
               <input
                 type="text"
                 name="doctor_name"
                 value={formData.doctor_name}
                 onChange={handleChange}
                 required
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500"
               />
             </label>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              Start Time:
+
+          <div className="flex items-center space-x-2">
+            <label className="block text-gray-700 font-semibold flex-grow">
+              <span className="text-pink-700">Start Time:</span>
               <input
                 type="time"
                 name="start_time"
                 value={formData.start_time}
                 onChange={handleChange}
                 required
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500"
               />
             </label>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              End Time:
+
+          <div className="flex items-center space-x-2">
+            <label className="block text-gray-700 font-semibold flex-grow">
+              <span className="text-pink-700">End Time:</span>
               <input
                 type="time"
                 name="end_time"
                 value={formData.end_time}
                 onChange={handleChange}
                 required
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500"
               />
             </label>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2">
-              Date:
+
+          <div className="flex items-center space-x-2">
+            <label className="block text-gray-700 font-semibold flex-grow">
+              <span className="text-pink-700">Date:</span>
               <input
                 type="date"
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
                 required
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500"
               />
             </label>
           </div>
+
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            className="bg-gradient-to-r from-pink-500 to-pink-700 hover:from-pink-600 hover:to-pink-800 text-white font-bold py-2 px-4 rounded-lg w-full transition-transform transform hover:scale-105"
           >
             Submit
           </button>
         </form>
       </div>
 
+      {/* Bookings List */}
       <div className="w-full max-w-md">
-        <h1 className="text-3xl font-bold mt-12 mb-6 text-center">Bookings</h1>
-        <ul className="bg-white p-6 rounded-lg shadow-md space-y-4">
+        <h1 className="text-4xl font-bold mt-12 mb-6 text-center text-pink-700">Bookings</h1>
+        <ul className="grid grid-cols-1 gap-6">
           {bookings.map((booking) => (
-            <li key={booking.id} className="bg-gray-50 p-4 rounded-lg shadow hover:shadow-lg transition-shadow">
-              <Link href={`/booking/${booking.id}`} className="text-blue-500 hover:underline">
-
-                  <div>
-                    <strong>Service:</strong> {booking.service}
-                  </div>
-                  <div>
-                    <strong>Doctor:</strong> {booking.doctor_name}
-                  </div>
-                  <div>
-                    <strong>Date:</strong> {formatDate(booking.date)}
-                  </div>
-                  <div>
-                    <strong>Time:</strong> {booking.start_time} - {booking.end_time}
-                  </div>
-
+            <li 
+              key={booking.id} 
+              className="bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg duration-300"
+            >
+              <Link href={`/booking/${booking.id}`} className="text-pink-600 hover:text-pink-800">
+                <div className="text-lg font-semibold mb-2">{booking.service}</div>
+                <div className="text-md mb-2">Doctor: {booking.doctor_name}</div>
+                <div className="text-sm text-gray-500">Date: {formatDate(booking.date)}</div>
+                <div className="text-sm text-gray-500">Time: {booking.start_time} - {booking.end_time}</div>
               </Link>
             </li>
           ))}
