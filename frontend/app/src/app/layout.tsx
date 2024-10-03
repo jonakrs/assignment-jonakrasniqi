@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
       <html lang="en">
-      <h1 className="underline">Elton</h1>
+      <h1 className="underline">Jona</h1>
 
       <body className={inter.className}>{children}</body>
       </html>
